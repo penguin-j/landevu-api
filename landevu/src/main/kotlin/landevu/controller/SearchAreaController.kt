@@ -1,18 +1,22 @@
 package landevu.controller
 
-import landevu.controller.dto.SearchAreaRequestDto
+import landevu.const.AppConst
 import landevu.controller.dto.SearchAreaResponseDto
 import landevu.repository.dao.Area
 import landevu.service.SearchAreaServiceImpl
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class SearchAreaController(private val searchAreaService: SearchAreaServiceImpl) {
-    @PostMapping("/landevu/v1/area/search")
-    fun execute(@RequestBody req: SearchAreaRequestDto): SearchAreaResponseDto {
-        val area: Area = searchAreaService.execute(req.areaId)
+    companion object {
+        const val URI_AREAS = "${AppConst.URI_HOME}/areas"
+    }
+
+    @GetMapping("${URI_AREAS}/search/{areaId}")
+    fun execute(@PathVariable("areaId") areaId: String): SearchAreaResponseDto {
+        val area: Area = searchAreaService.execute(areaId)
         return SearchAreaResponseDto(area)
     }
 }
