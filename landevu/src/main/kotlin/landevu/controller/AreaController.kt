@@ -19,6 +19,7 @@ class AreaController(
     }
 
     @GetMapping("${URI_AREAS}/search/{areaId}")
+    @ResponseStatus(HttpStatus.OK)
     fun searchArea(@PathVariable("areaId") areaId: String): Area {
         return searchAreaService.execute(areaId)
     }
