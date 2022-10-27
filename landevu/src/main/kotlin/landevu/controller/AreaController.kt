@@ -25,7 +25,7 @@ class AreaController(
     }
 
     @PostMapping("${URI_AREAS}/register")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     fun registerArea(@RequestBody registerAreaRequest: RegisterAreaRequest): RegisterAreaResponse {
         val registeredAreas: List<Area> = registerAreaService.execute(registerAreaRequest.areas)
         return RegisterAreaResponse(registeredAreas)
