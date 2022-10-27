@@ -4,6 +4,7 @@ import landevu.dto.Area
 import org.apache.ibatis.annotations.Insert
 import org.apache.ibatis.annotations.Mapper
 import org.apache.ibatis.annotations.Select
+import org.apache.ibatis.annotations.Update
 
 @Mapper
 interface AreaMapper {
@@ -12,4 +13,7 @@ interface AreaMapper {
 
     @Insert("insert into area values (#{areaId}, #{areaName})")
     fun insertArea(area: Area)
+
+    @Update("update area set area_name = #{areaName} where area_id = #{areaId}")
+    fun updateArea(area: Area)
 }
