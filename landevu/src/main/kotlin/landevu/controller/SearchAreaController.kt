@@ -1,7 +1,6 @@
 package landevu.controller
 
 import landevu.const.AppConst
-import landevu.controller.dto.SearchAreaResponseDto
 import landevu.repository.dao.Area
 import landevu.service.SearchAreaServiceImpl
 import org.springframework.web.bind.annotation.GetMapping
@@ -15,8 +14,7 @@ class SearchAreaController(private val searchAreaService: SearchAreaServiceImpl)
     }
 
     @GetMapping("${URI_AREAS}/search/{areaId}")
-    fun execute(@PathVariable("areaId") areaId: String): SearchAreaResponseDto {
-        val area: Area = searchAreaService.execute(areaId)
-        return SearchAreaResponseDto(area)
+    fun execute(@PathVariable("areaId") areaId: String): Area {
+        return searchAreaService.execute(areaId)
     }
 }
