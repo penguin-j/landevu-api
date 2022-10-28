@@ -18,9 +18,9 @@ class AreaController(
         const val URI_AREAS = "${AppConst.URI_HOME}/areas"
     }
 
-    @GetMapping("${URI_AREAS}/search/{areaId}")
+    @GetMapping("${URI_AREAS}/search")
     @ResponseStatus(HttpStatus.OK)
-    fun searchArea(@PathVariable("areaId") areaId: String): Area {
+    fun searchArea(@RequestParam(name = "id") areaId: String): Area {
         return searchAreaService.execute(areaId)
     }
 
