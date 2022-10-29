@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository
 @Repository
 class AreaRepositoryImpl(private val areaMapper: AreaMapper) : AreaRepository {
     override fun findById(areaId: String): Area {
-        val areaDao: AreaDao = areaMapper.findById(areaId)
-        return Area(areaDao.areaId, areaDao.areaName)
+        val record: AreaDao = areaMapper.findById(areaId)
+        return Area(record.areaId, record.areaName)
     }
 
     override fun insertArea(area: Area) {
