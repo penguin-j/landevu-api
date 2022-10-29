@@ -2,6 +2,7 @@ package landevu.controller
 
 import landevu.const.AppConst
 import landevu.dto.*
+import landevu.service.RecommendAreaService
 import landevu.service.RegisterAreaService
 import landevu.service.SearchAreaService
 import landevu.service.UpdateAreaService
@@ -12,7 +13,8 @@ import org.springframework.web.bind.annotation.*
 class AreaController(
     private val searchAreaService: SearchAreaService,
     private val registerAreaService: RegisterAreaService,
-    private val updateAreaService: UpdateAreaService
+    private val updateAreaService: UpdateAreaService,
+    private val recommendAreaService: RecommendAreaService
 ) {
     companion object {
         const val URI_AREAS = "${AppConst.URI_HOME}/areas"
@@ -36,5 +38,12 @@ class AreaController(
     fun updateArea(@RequestBody updateAreaRequest: UpdateAreaRequest): UpdateAreaResponse {
         val updatedAreas: List<Area> = updateAreaService.execute(updateAreaRequest.areas)
         return UpdateAreaResponse(updatedAreas)
+    }
+
+    @PostMapping("${URI_AREAS}/recommend")
+    @ResponseStatus(HttpStatus.OK)
+    fun recommendArea(@RequestBody recommendAreaRequest: RecommendAreaRequest): RecommendAreaResponse {
+        val recommendedAreas: List<Area> = recommendAreaService.execute(recommendAreaRequest)
+        return RecommendAreaResponse(recommendedAreas)
     }
 }
