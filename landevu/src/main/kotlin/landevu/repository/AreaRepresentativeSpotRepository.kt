@@ -6,4 +6,6 @@ interface AreaRepresentativeSpotRepository {
     fun findByAreaId(areaId: String): List<AreaRepresentativeSpot>
 
     fun findBySpotId(spotId: String): AreaRepresentativeSpot
+
+    fun findAll(): List<AreaRepresentativeSpot>
 }

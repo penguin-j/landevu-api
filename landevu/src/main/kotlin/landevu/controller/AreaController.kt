@@ -43,7 +43,9 @@ class AreaController(
     @PostMapping("${URI_AREAS}/recommend")
     @ResponseStatus(HttpStatus.OK)
     fun recommendArea(@RequestBody recommendAreaRequest: RecommendAreaRequest): RecommendAreaResponse {
-        val recommendedAreas: List<Area> = recommendAreaService.execute(recommendAreaRequest)
-        return RecommendAreaResponse(recommendedAreas)
+        val recommendedAreas: List<Pair<Area, Spot>> = recommendAreaService.execute(recommendAreaRequest)
+        val recommendAreaResponseElements: List<RecommendAreaResponseElement> =
+            recommendedAreas.map { RecommendAreaResponseElement(it.first, it.second) }
+        return RecommendAreaResponse(recommendAreaResponseElements)
     }
 }

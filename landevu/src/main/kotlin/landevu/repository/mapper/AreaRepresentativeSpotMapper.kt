@@ -11,4 +11,7 @@ interface AreaRepresentativeSpotMapper {
 
     @Select("select * from area_representative_spot where spot_id = #{spotId}")
     fun findBySpotId(spotId: String): AreaRepresentativeSpotDao
+
+    @Select("select * from area_representative_spot")
+    fun findAll(): List<AreaRepresentativeSpotDao>
 }

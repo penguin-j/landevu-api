@@ -13,7 +13,7 @@ class RecommendAreaServiceImpl(
     private val spotRepository: SpotRepository,
     private val areaRepresentativeSpotRepository: AreaRepresentativeSpotRepository
 ) : RecommendAreaService {
-    override fun execute(recommendAreaRequest: RecommendAreaRequest): List<Area> {
+    override fun execute(recommendAreaRequest: RecommendAreaRequest): List<Pair<Area, Spot>> {
         // 出発地点間の中間地点の座標を算出する
         val mediumCoordinate: Coordinate = calculateMediumCoordinate(recommendAreaRequest.coordinates)
 
@@ -22,7 +22,6 @@ class RecommendAreaServiceImpl(
 
         // 中間地点に近いエリアを探索する
         return searchNearestArea(mediumCoordinate, allAreaRepresentativeSpots)
-
     }
 
     /**
@@ -42,23 +41,25 @@ class RecommendAreaServiceImpl(
         val mediumLatitude: Double = latitudeList.average()
 
         return Coordinate(mediumLongitude, mediumLatitude)
-
     }
 
     /**
      * 近くのエリアを探索する
      */
-    private fun searchNearestArea(targetCoordinate: Coordinate, allAreaRepresentativeSpots: List<Spot>): List<Area> {
+    private fun searchNearestArea(
+        targetCoordinate: Coordinate,
+        allAreaRepresentativeSpots: List<Spot>
+    ): List<Pair<Area, Spot>> {
         val allCoordinates: List<Coordinate> = allAreaRepresentativeSpots.map { it.coordinate }
 
         val nearestCoordinate: Coordinate = searchNearestNeighbor(targetCoordinate, allCoordinates)
-        val nearestAreaRepresentativeSpot: Spot? =
-            allAreaRepresentativeSpots.find { it.coordinate == nearestCoordinate }
+        val nearestSpot: Spot =
+            allAreaRepresentativeSpots.filter { it.coordinate == nearestCoordinate }[0]
         val nearestAreaId: String =
-            areaRepresentativeSpotRepository.findBySpotId(nearestAreaRepresentativeSpot?.spotId ?: "spot000001").areaId
+            areaRepresentativeSpotRepository.findBySpotId(nearestSpot.spotId).areaId
         val nearestArea = areaRepository.findById(nearestAreaId)
 
-        return listOf(nearestArea)
+        return listOf(Pair(nearestArea, nearestSpot))
     }
 
     /**

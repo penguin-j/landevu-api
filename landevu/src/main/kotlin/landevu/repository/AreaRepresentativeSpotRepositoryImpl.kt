@@ -17,4 +17,9 @@ class AreaRepresentativeSpotRepositoryImpl(private val areaRepresentativeSpotMap
         val record: AreaRepresentativeSpotDao = areaRepresentativeSpotMapper.findBySpotId(spotId)
         return AreaRepresentativeSpot(record.areaId, record.spotId)
     }
+
+    override fun findAll(): List<AreaRepresentativeSpot> {
+        val records: List<AreaRepresentativeSpotDao> = areaRepresentativeSpotMapper.findAll()
+        return records.map { AreaRepresentativeSpot(it.areaId, it.spotId) }
+    }
 }
