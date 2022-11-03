@@ -2,7 +2,6 @@ package landevu.service
 
 import landevu.dto.*
 import landevu.repository.AreaRepository
-import landevu.repository.AreaRepresentativeSpotRepository
 import landevu.repository.SpotRepository
 import org.springframework.stereotype.Service
 import kotlin.math.*
@@ -11,7 +10,6 @@ import kotlin.math.*
 class RecommendAreaServiceImpl(
     private val areaRepository: AreaRepository,
     private val spotRepository: SpotRepository,
-    private val areaRepresentativeSpotRepository: AreaRepresentativeSpotRepository
 ) : RecommendAreaService {
     override fun execute(recommendAreaRequest: RecommendAreaRequest): List<Pair<Area, Spot>> {
         // 出発地点間の中間地点の座標を算出する
@@ -58,9 +56,7 @@ class RecommendAreaServiceImpl(
             allAreaRepresentativeSpots.filter { it.coordinate == nearestCoordinate }[0]
 
         // エリア代表地点が属するエリアを特定する
-        val nearestAreaId: String =
-            areaRepresentativeSpotRepository.findBySpotId(nearestSpot.spotId).areaId
-        val nearestArea = areaRepository.findById(nearestAreaId)
+        val nearestArea = areaRepository.findById(nearestSpot.areaId)
 
         return listOf(Pair(nearestArea, nearestSpot))
     }

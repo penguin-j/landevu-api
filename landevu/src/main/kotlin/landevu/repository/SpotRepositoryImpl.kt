@@ -10,11 +10,11 @@ import org.springframework.stereotype.Repository
 class SpotRepositoryImpl(private val spotMapper: SpotMapper) : SpotRepository {
     override fun findById(spotId: String): Spot {
         val record: SpotDao = spotMapper.findById(spotId)
-        return Spot(record.spotId, record.spotName, Coordinate(record.longitude, record.latitude))
+        return Spot(record.spotId, record.spotName, record.areaId, Coordinate(record.longitude, record.latitude))
     }
 
     override fun findAll(): List<Spot> {
         val records: List<SpotDao> = spotMapper.findAll()
-        return records.map { Spot(it.spotId, it.spotName, Coordinate(it.longitude, it.latitude)) }
+        return records.map { Spot(it.spotId, it.spotName, it.areaId, Coordinate(it.longitude, it.latitude)) }
     }
 }
