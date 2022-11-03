@@ -17,11 +17,8 @@ class RecommendAreaServiceImpl(
         // 出発地点間の中間地点の座標を算出する
         val mediumCoordinate: Coordinate = calculateMediumCoordinate(recommendAreaRequest.coordinates)
 
-        // エリア代表地点一覧を取得する
-        val allAreaRepresentativeSpots: List<Spot> = spotRepository.findAll()
-
         // 中間地点に近いエリアを探索する
-        return searchNearestArea(mediumCoordinate, allAreaRepresentativeSpots)
+        return searchNearestArea(mediumCoordinate)
     }
 
     /**
@@ -47,14 +44,20 @@ class RecommendAreaServiceImpl(
      * 近くのエリアを探索する
      */
     private fun searchNearestArea(
-        targetCoordinate: Coordinate,
-        allAreaRepresentativeSpots: List<Spot>
+        targetCoordinate: Coordinate
     ): List<Pair<Area, Spot>> {
+        // エリア代表地点一覧を取得する
+        val allAreaRepresentativeSpots: List<Spot> = spotRepository.findAll()
+
+        // エリア代表地点の座標を取得する
         val allCoordinates: List<Coordinate> = allAreaRepresentativeSpots.map { it.coordinate }
 
+        // 最近傍探索により、ターゲットから最も近いエリア代表地点を特定する
         val nearestCoordinate: Coordinate = searchNearestNeighbor(targetCoordinate, allCoordinates)
         val nearestSpot: Spot =
             allAreaRepresentativeSpots.filter { it.coordinate == nearestCoordinate }[0]
+
+        // エリア代表地点が属するエリアを特定する
         val nearestAreaId: String =
             areaRepresentativeSpotRepository.findBySpotId(nearestSpot.spotId).areaId
         val nearestArea = areaRepository.findById(nearestAreaId)
