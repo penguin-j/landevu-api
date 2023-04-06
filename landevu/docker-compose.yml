@@ -1,0 +1,19 @@
+version: "3"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: "landevu"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "landevudb"
+    ports:
+      - "5432:5432"
+    volumes:
+      - "./docker/db/data:/var/lib/postgresql/data"
+      - "./docker/db/initdb:/docker-entrypoint-initdb.d"
