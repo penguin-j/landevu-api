@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk11:alpine
+FROM openjdk:17-alpine
 VOLUME /tmp
 RUN mkdir /work
 COPY . /work

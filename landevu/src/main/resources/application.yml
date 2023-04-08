@@ -1,6 +1,11 @@
 spring:
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/landevu
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://landevu_db_1:5432/landevudb
+    username: landevu
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+    hibernate:
+      ddl-auto: none
