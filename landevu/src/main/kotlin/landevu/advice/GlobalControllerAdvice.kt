@@ -2,10 +2,10 @@ package landevu.advice
 
 import org.springframework.stereotype.Component
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
+import org.springframework.web.bind.annotation.RestControllerAdvice
 
-@ControllerAdvice
+@RestControllerAdvice
 @Component
 class GlobalControllerAdvice {
     @ExceptionHandler(Exception::class)
