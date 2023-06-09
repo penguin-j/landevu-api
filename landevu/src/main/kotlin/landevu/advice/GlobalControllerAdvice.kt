@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 class GlobalControllerAdvice {
     @ExceptionHandler(Exception::class)
-    fun log(e: Exception, model: Model) {
+    fun log(e: Exception, model: Model): ErrorResponse {
         println(e)
+        return ErrorResponse("E9999", "Error!")
     }
 }
