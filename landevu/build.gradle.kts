@@ -23,6 +23,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2")
     implementation("org.postgresql:postgresql")
+    implementation (platform("software.amazon.awssdk:bom:2.20.56"))
+    implementation("software.amazon.awssdk:location")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
