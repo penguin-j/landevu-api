@@ -4,6 +4,8 @@ import landevu.dto.*
 import landevu.repository.AreaRepository
 import landevu.repository.SpotRepository
 import org.springframework.stereotype.Service
+import software.amazon.awssdk.services.location.LocationClient
+import software.amazon.awssdk.services.location.model.SearchPlaceIndexForTextRequest
 import kotlin.math.*
 
 @Service
@@ -12,8 +14,22 @@ class RecommendAreaServiceImpl(
     private val spotRepository: SpotRepository,
 ) : RecommendAreaService {
     override fun execute(recommendAreaRequest: RecommendAreaRequest): List<Pair<Area, Spot>> {
+        // 出発地点の座標を取得する
+        val locationClient = LocationClient.builder().build()
+        val searchRequest = SearchPlaceIndexForTextRequest.builder().indexName("st-landevu-place-index-esri")
+            .text("東京都千代田区東京駅").build()
+
+        val searchResults = locationClient.searchPlaceIndexForText(
+            searchRequest
+        ).results()
+
+        val departureSpotCoordinates: List<Coordinate> =
+            searchResults.map { Coordinate(it.place().geometry().point()[0], it.place().geometry().point()[1]) }
+
+        println(departureSpotCoordinates)
+
         // 出発地点間の中間地点の座標を算出する
-        val mediumCoordinate: Coordinate = calculateMediumCoordinate(recommendAreaRequest.coordinates)
+        val mediumCoordinate: Coordinate = calculateMediumCoordinate(departureSpotCoordinates)
 
         // 中間地点に近いエリアを探索する
         return searchNearestArea(mediumCoordinate)
@@ -52,8 +68,7 @@ class RecommendAreaServiceImpl(
 
         // 最近傍探索により、ターゲットから最も近いエリア代表地点を特定する
         val nearestCoordinate: Coordinate = searchNearestNeighbor(targetCoordinate, allCoordinates)
-        val nearestSpot: Spot =
-            allAreaRepresentativeSpots.filter { it.coordinate == nearestCoordinate }[0]
+        val nearestSpot: Spot = allAreaRepresentativeSpots.filter { it.coordinate == nearestCoordinate }[0]
 
         // エリア代表地点が属するエリアを特定する
         val nearestArea = areaRepository.findById(nearestSpot.areaId)
