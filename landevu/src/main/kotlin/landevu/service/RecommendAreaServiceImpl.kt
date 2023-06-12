@@ -16,12 +16,14 @@ class RecommendAreaServiceImpl(
     override fun execute(recommendAreaRequest: RecommendAreaRequest): List<Pair<Area, Spot>> {
         // 出発地点の座標を取得する
         val locationClient = LocationClient.builder().build()
-        val searchRequest = SearchPlaceIndexForTextRequest.builder().indexName("st-landevu-place-index-esri")
-            .text("東京都千代田区東京駅").build()
 
-        val searchResults = locationClient.searchPlaceIndexForText(
-            searchRequest
-        ).results()
+        val searchResults = recommendAreaRequest.spotNames.map {
+            locationClient.searchPlaceIndexForText(
+                SearchPlaceIndexForTextRequest.builder().indexName("st-landevu-place-index-esri").text(it).build()
+            ).results()[0]
+        }
+
+        println(searchResults)
 
         val departureSpotCoordinates: List<Coordinate> =
             searchResults.map { Coordinate(it.place().geometry().point()[0], it.place().geometry().point()[1]) }

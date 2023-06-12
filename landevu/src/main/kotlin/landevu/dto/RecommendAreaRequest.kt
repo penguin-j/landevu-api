@@ -1,3 +1,3 @@
 package landevu.dto
 
-data class RecommendAreaRequest(val coordinates: List<Coordinate>)
+data class RecommendAreaRequest(val spotNames: List<String>)
