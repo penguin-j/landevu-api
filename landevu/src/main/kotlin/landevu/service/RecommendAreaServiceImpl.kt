@@ -15,19 +15,9 @@ class RecommendAreaServiceImpl(
 ) : RecommendAreaService {
     override fun execute(recommendAreaRequest: RecommendAreaRequest): List<Pair<Area, Spot>> {
         // 出発地点の座標を取得する
-        val locationClient = LocationClient.builder().build()
-
-        val searchResults = recommendAreaRequest.spotNames.map {
-            locationClient.searchPlaceIndexForText(
-                SearchPlaceIndexForTextRequest.builder().indexName("st-landevu-place-index-esri").text(it).build()
-            ).results()[0]
+        val departureSpotCoordinates: List<Coordinate> = recommendAreaRequest.spotNames.map {
+            searchCoordinateFromSpotName(it)
         }
-
-        println(searchResults)
-
-        val departureSpotCoordinates: List<Coordinate> =
-            searchResults.map { Coordinate(it.place().geometry().point()[0], it.place().geometry().point()[1]) }
-
         println(departureSpotCoordinates)
 
         // 出発地点間の中間地点の座標を算出する
@@ -76,6 +66,26 @@ class RecommendAreaServiceImpl(
         val nearestArea = areaRepository.findById(nearestSpot.areaId)
 
         return listOf(Pair(nearestArea, nearestSpot))
+    }
+
+    /**
+     * 地点名から座標を取得するメソッド
+     */
+    private fun searchCoordinateFromSpotName(spotName: String): Coordinate {
+        val locationClient = LocationClient.builder().build()
+
+        val searchedResults = locationClient.searchPlaceIndexForText(
+            SearchPlaceIndexForTextRequest.builder().indexName("st-landevu-place-index-esri").text(spotName).build()
+        ).results()
+        println(searchedResults)
+
+        val searchedResult = searchedResults[0]
+
+        val searchedCoordinate =
+            Coordinate(searchedResult.place().geometry().point()[0], searchedResult.place().geometry().point()[1])
+        println(searchedCoordinate)
+
+        return searchedCoordinate
     }
 
     /**
