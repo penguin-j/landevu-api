@@ -1,9 +1,9 @@
 spring:
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://landevu_db_1:5432/landevudb
-    username: landevu
-    password: password
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://landevu_db_1:5432/landevudb}
+    username: ${SPRING_DATASOURCE_USERNAME:landevu}
+    password: ${SPRING_DATASOURCE_PASSWORD:password}
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: false
