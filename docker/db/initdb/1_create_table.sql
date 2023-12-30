@@ -11,3 +11,7 @@ create table spots (
     latitude numeric not null,
     foreign key (area_id) references areas(area_id)
 );
+create table train_lines (
+    train_line_id char(10) primary key,
+    train_line_name varchar(100) not null
+);
