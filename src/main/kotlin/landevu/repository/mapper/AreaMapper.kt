@@ -8,12 +8,12 @@ import org.apache.ibatis.annotations.Update
 
 @Mapper
 interface AreaMapper {
-    @Select("select * from area where area_id = #{areaId}")
+    @Select("select * from areas where area_id = #{areaId}")
     fun findById(areaId: String): AreaDao
 
-    @Insert("insert into area values (#{areaId}, #{areaName})")
+    @Insert("insert into areas values (#{areaId}, #{areaName})")
     fun insertArea(area: AreaDao)
 
-    @Update("update area set area_name = #{areaName} where area_id = #{areaId}")
+    @Update("update areas set area_name = #{areaName} where area_id = #{areaId}")
     fun updateArea(area: AreaDao)
 }

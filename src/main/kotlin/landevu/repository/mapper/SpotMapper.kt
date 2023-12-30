@@ -6,9 +6,9 @@ import org.apache.ibatis.annotations.Select
 
 @Mapper
 interface SpotMapper {
-    @Select("select * from spot where spot_id = #{spotId}")
+    @Select("select * from spots where spot_id = #{spotId}")
     fun findById(spotId: String): SpotDao
 
-    @Select("select * from spot")
+    @Select("select * from spots")
     fun findAll(): List<SpotDao>
 }
