@@ -11,6 +11,8 @@ interface AreaMapper {
     @Select("select * from areas where area_id = #{areaId}")
     fun findById(areaId: String): AreaDao
 
+    fun searchByTrainLineId(trainLineIds: List<String>): List<AreaDao>
+
     @Insert("insert into areas values (#{areaId}, #{areaName})")
     fun insertArea(area: AreaDao)
 

@@ -2,16 +2,14 @@ package landevu.controller
 
 import landevu.const.AppConst
 import landevu.dto.*
-import landevu.service.RecommendAreaService
-import landevu.service.RegisterAreaService
-import landevu.service.SearchAreaService
-import landevu.service.UpdateAreaService
+import landevu.service.*
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
 class AreaController(
     private val searchAreaService: SearchAreaService,
+    private val searchAreaByTrainLineService: SearchAreaByTrainLineService,
     private val registerAreaService: RegisterAreaService,
     private val updateAreaService: UpdateAreaService,
     private val recommendAreaService: RecommendAreaService
@@ -24,6 +22,12 @@ class AreaController(
     @ResponseStatus(HttpStatus.OK)
     fun searchArea(@RequestParam(name = "id") areaId: String): Area {
         return searchAreaService.execute(areaId)
+    }
+
+    @PostMapping("${URI_AREAS}/search/train-line")
+    fun searchAreaByTrainLine(@RequestBody searchAreaByTrainLineRequest: SearchAreaByTrainLineRequest): SearchAreaByTrainLineResponse {
+        val areas = searchAreaByTrainLineService.execute(searchAreaByTrainLineRequest.trainLineIds)
+        return SearchAreaByTrainLineResponse(areas)
     }
 
     @PostMapping("${URI_AREAS}/register")

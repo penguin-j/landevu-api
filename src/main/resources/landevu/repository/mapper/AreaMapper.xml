@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="landevu.repository.mapper.AreaMapper">
+
+    <select id="searchByTrainLineId" resultType="landevu.repository.dao.AreaDao">
+        select
+        a.area_id,
+        a.area_name
+        from
+        train_lines tl
+        join
+        stations s
+        on
+        tl.train_line_id = s.train_line_id
+        join
+        areas a
+        on
+        s.area_id = a.area_id
+        where
+        tl.train_line_id in
+        <foreach item="id" collection="trainLineIds" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+</mapper>
