@@ -4,7 +4,7 @@ import landevu.repository.dao.AreaDao
 import org.apache.ibatis.annotations.Mapper
 
 @Mapper
-interface AreaMapper {
+interface AreasMapper {
     fun findById(areaId: String): AreaDao
 
     fun searchByTrainLineId(trainLineIds: List<String>): List<AreaDao>
