@@ -3,10 +3,10 @@
 <mapper namespace="landevu.repository.mapper.SpotsMapper">
 
     <select id="findById" resultType="landevu.repository.dao.SpotDao">
-        select * from spots where spot_id = #{spotId}
+        select * from landevu.spots where spot_id = #{spotId}
     </select>
 
     <select id="findAll" resultType="landevu.repository.dao.SpotDao">
-        select * from spots
+        select * from landevu.spots
     </select>
 </mapper>

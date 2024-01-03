@@ -3,10 +3,10 @@
 <mapper namespace="landevu.repository.mapper.TrainLinesMapper">
 
     <select id="findById" resultType="landevu.repository.dao.TrainLineDao">
-        select * from train_lines where train_line_id = #{trainLineId}
+        select * from landevu.train_lines where train_line_id = #{trainLineId}
     </select>
 
     <select id="findAll" resultType="landevu.repository.dao.TrainLineDao">
-        select * from train_lines
+        select * from landevu.train_lines
     </select>
 </mapper>

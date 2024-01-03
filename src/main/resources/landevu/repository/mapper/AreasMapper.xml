@@ -3,7 +3,7 @@
 <mapper namespace="landevu.repository.mapper.AreasMapper">
 
     <select id="findById" resultType="landevu.repository.dao.AreaDao">
-        select * from areas where area_id = #{areaId}
+        select * from landevu.areas where area_id = #{areaId}
     </select>
 
     <select id="searchByTrainLineId" resultType="landevu.repository.dao.AreaDao">
@@ -11,13 +11,13 @@
         a.area_id,
         a.area_name
         from
-        train_lines tl
+        landevu.train_lines tl
         join
-        stations s
+        landevu.stations s
         on
         tl.train_line_id = s.train_line_id
         join
-        areas a
+        landevu.areas a
         on
         s.area_id = a.area_id
         where
@@ -28,10 +28,10 @@
     </select>
 
     <insert id="insertArea">
-        insert into areas values (#{areaId}, #{areaName})
+        insert into landevu.areas values (#{areaId}, #{areaName})
     </insert>
 
     <update id="updateArea">
-        update areas set area_name = #{areaName} where area_id = #{areaId}
+        update landevu.areas set area_name = #{areaName} where area_id = #{areaId}
     </update>
 </mapper>

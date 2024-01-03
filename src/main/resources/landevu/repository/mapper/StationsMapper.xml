@@ -3,18 +3,18 @@
 <mapper namespace="landevu.repository.mapper.StationsMapper">
 
     <select id="findById" resultType="landevu.repository.dao.StationDao">
-        select * from stations where station_id = #{stationId}
+        select * from landevu.stations where station_id = #{stationId}
     </select>
 
     <select id="findByTrainLineId" resultType="landevu.repository.dao.StationDao">
-        select * from stations where train_line_id = #{trainLineId}
+        select * from landevu.stations where train_line_id = #{trainLineId}
     </select>
 
     <select id="findByAreaId" resultType="landevu.repository.dao.StationDao">
-        select * from stations where area_id = #{areaId}
+        select * from landevu.stations where area_id = #{areaId}
     </select>
 
     <select id="searchByName" resultType="landevu.repository.dao.StationDao">
-        select * from stations where station_name like concat('%', #{stationName}, '%')
+        select * from landevu.stations where station_name like concat('%', #{stationName}, '%')
     </select>
 </mapper>
