@@ -1,7 +1,7 @@
 spring:
   datasource:
     driverClassName: org.postgresql.Driver
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://landevu_db_1:5432/landevudb}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://landevu_db_1:5432/landevudb?currentSchema=landevu}
     username: ${SPRING_DATASOURCE_USERNAME:landevu}
     password: ${SPRING_DATASOURCE_PASSWORD:password}
   jpa:
