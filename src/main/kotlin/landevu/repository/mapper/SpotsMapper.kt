@@ -8,4 +8,6 @@ interface SpotsMapper {
     fun findById(spotId: String): SpotDao
 
     fun findAll(): List<SpotDao>
+
+    fun findByAreaId(areaId: String): List<SpotDao>
 }

@@ -17,4 +17,9 @@ class SpotRepositoryImpl(private val spotsMapper: SpotsMapper) : SpotRepository 
         val records: List<SpotDao> = spotsMapper.findAll()
         return records.map { Spot(it.spotId, it.spotName, it.areaId, Coordinate(it.longitude, it.latitude)) }
     }
+
+    override fun findByAreaId(areaId: String): List<Spot> {
+        val records: List<SpotDao> = spotsMapper.findByAreaId(areaId)
+        return records.map { Spot(it.spotId, it.spotName, it.areaId, Coordinate(it.longitude, it.latitude)) }
+    }
 }

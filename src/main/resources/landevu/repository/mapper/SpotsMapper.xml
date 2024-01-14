@@ -9,4 +9,8 @@
     <select id="findAll" resultType="landevu.repository.dao.SpotDao">
         select * from landevu.spots
     </select>
+
+    <select id="findByAreaId" resultType="landevu.repository.dao.SpotDao">
+        select * from landevu.spots where area_id = #{areaId}
+    </select>
 </mapper>
