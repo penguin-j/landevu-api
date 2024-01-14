@@ -25,9 +25,9 @@ class AreaController(
     }
 
     @PostMapping("${URI_AREAS}/search/train-line")
-    fun searchAreaByTrainLine(@RequestBody searchAreaByTrainLineRequest: SearchAreaByTrainLineRequest): SearchAreaByTrainLineResponse {
+    fun searchAreaByTrainLine(@RequestBody searchAreaByTrainLineRequest: SearchAreaByTrainLineRequest): RecommendAreaResponse {
         val areas = searchAreaByTrainLineService.execute(searchAreaByTrainLineRequest.trainLineIds)
-        return SearchAreaByTrainLineResponse(areas)
+        return RecommendAreaResponse(areas)
     }
 
     @PostMapping("${URI_AREAS}/register")

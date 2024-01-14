@@ -1,7 +1,7 @@
 package landevu.service
 
-import landevu.dto.Area
+import landevu.dto.RecommendAreaResponseElement
 
 interface SearchAreaByTrainLineService {
-    fun execute(trainLines: List<String>): List<Area>
+    fun execute(trainLines: List<String>): List<RecommendAreaResponseElement>
 }
