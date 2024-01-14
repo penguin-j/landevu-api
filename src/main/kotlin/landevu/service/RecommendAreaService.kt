@@ -1,9 +1,8 @@
 package landevu.service
 
-import landevu.dto.Area
 import landevu.dto.RecommendAreaRequest
-import landevu.dto.Spot
+import landevu.dto.RecommendAreaResponseElement
 
 interface RecommendAreaService {
-    fun execute(recommendAreaRequest: RecommendAreaRequest): List<Pair<Area, Spot>>
+    fun execute(recommendAreaRequest: RecommendAreaRequest): List<RecommendAreaResponseElement>
 }

@@ -1,3 +1,3 @@
 package landevu.dto
 
-data class RecommendAreaResponseElement(val area: Area, val spot: Spot)
+data class RecommendAreaResponseElement(val area: Area, val spots: List<Spot>)

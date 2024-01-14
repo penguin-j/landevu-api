@@ -13,7 +13,7 @@ class RecommendAreaServiceImpl(
     private val areaRepository: AreaRepository,
     private val spotRepository: SpotRepository,
 ) : RecommendAreaService {
-    override fun execute(recommendAreaRequest: RecommendAreaRequest): List<Pair<Area, Spot>> {
+    override fun execute(recommendAreaRequest: RecommendAreaRequest): List<RecommendAreaResponseElement> {
         // 出発地点の座標を取得する
         val departureSpotCoordinates: List<Coordinate> = recommendAreaRequest.spotNames.map {
             searchCoordinateFromSpotName(it)
@@ -24,7 +24,14 @@ class RecommendAreaServiceImpl(
         val mediumCoordinate: Coordinate = calculateMediumCoordinate(departureSpotCoordinates)
 
         // 中間地点に近いエリアを探索する
-        return searchNearestArea(mediumCoordinate)
+        // TODO: ここで複数エリアを取得できるようにする
+        val nearestArea = searchNearestArea(mediumCoordinate)
+
+        // おすすめエリアに属するスポットを取得する
+        val recommendAreaResponseElements = nearestArea.map {
+            RecommendAreaResponseElement(it, spotRepository.findByAreaId(it.areaId))
+        }
+        return recommendAreaResponseElements
     }
 
     /**
@@ -51,7 +58,7 @@ class RecommendAreaServiceImpl(
      */
     private fun searchNearestArea(
         targetCoordinate: Coordinate
-    ): List<Pair<Area, Spot>> {
+    ): List<Area> {
         // エリア代表地点一覧を取得する
         val allAreaRepresentativeSpots: List<Spot> = spotRepository.findAll()
 
@@ -65,7 +72,7 @@ class RecommendAreaServiceImpl(
         // エリア代表地点が属するエリアを特定する
         val nearestArea = areaRepository.findById(nearestSpot.areaId)
 
-        return listOf(Pair(nearestArea, nearestSpot))
+        return listOf(nearestArea)
     }
 
     /**
