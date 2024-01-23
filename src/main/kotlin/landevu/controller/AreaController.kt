@@ -24,8 +24,15 @@ class AreaController(
         return searchAreaService.execute(areaId)
     }
 
-    @PostMapping("${URI_AREAS}/search/train-line")
-    fun searchAreaByTrainLine(@RequestBody searchAreaByTrainLineRequest: SearchAreaByTrainLineRequest): RecommendAreaResponse {
+    @PostMapping("${URI_AREAS}/recommend/by-departure-places")
+    @ResponseStatus(HttpStatus.OK)
+    fun recommendAreaByDeparturePlaces(@RequestBody recommendAreaRequest: RecommendAreaRequest): RecommendAreaResponse {
+        val recommendedAreas: List<RecommendAreaResponseElement> = recommendAreaService.execute(recommendAreaRequest)
+        return RecommendAreaResponse(recommendedAreas)
+    }
+
+    @PostMapping("${URI_AREAS}/recommend/by-train-line")
+    fun recommendAreaByTrainLine(@RequestBody searchAreaByTrainLineRequest: SearchAreaByTrainLineRequest): RecommendAreaResponse {
         val areas = searchAreaByTrainLineService.execute(searchAreaByTrainLineRequest.trainLineIds)
         return RecommendAreaResponse(areas)
     }
@@ -42,12 +49,5 @@ class AreaController(
     fun updateArea(@RequestBody updateAreaRequest: UpdateAreaRequest): UpdateAreaResponse {
         val updatedAreas: List<Area> = updateAreaService.execute(updateAreaRequest.areas)
         return UpdateAreaResponse(updatedAreas)
-    }
-
-    @PostMapping("${URI_AREAS}/recommend")
-    @ResponseStatus(HttpStatus.OK)
-    fun recommendArea(@RequestBody recommendAreaRequest: RecommendAreaRequest): RecommendAreaResponse {
-        val recommendedAreas: List<RecommendAreaResponseElement> = recommendAreaService.execute(recommendAreaRequest)
-        return RecommendAreaResponse(recommendedAreas)
     }
 }
