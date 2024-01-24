@@ -1,9 +1,9 @@
-package landevu.service
+package landevu.service.impl
 
-import landevu.dto.Area
 import landevu.dto.RecommendAreaResponseElement
 import landevu.repository.AreaRepository
 import landevu.repository.SpotRepository
+import landevu.service.SearchAreaByTrainLineService
 import org.springframework.stereotype.Service
 
 @Service

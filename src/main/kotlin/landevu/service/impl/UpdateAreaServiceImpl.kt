@@ -1,7 +1,8 @@
-package landevu.service
+package landevu.service.impl
 
 import landevu.dto.Area
 import landevu.repository.AreaRepository
+import landevu.service.UpdateAreaService
 import org.springframework.stereotype.Service
 
 @Service

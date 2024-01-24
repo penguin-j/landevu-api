@@ -1,8 +1,9 @@
-package landevu.service
+package landevu.service.impl
 
 import landevu.dto.*
 import landevu.repository.AreaRepository
 import landevu.repository.SpotRepository
+import landevu.service.RecommendAreaService
 import org.springframework.stereotype.Service
 import software.amazon.awssdk.services.location.LocationClient
 import software.amazon.awssdk.services.location.model.SearchPlaceIndexForTextRequest
