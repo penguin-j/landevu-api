@@ -1,6 +1,6 @@
-package landevu.repository.mapper
+package landevu.infrastructure.mapper
 
-import landevu.repository.dao.StationDao
+import landevu.infrastructure.dao.StationDao
 import org.apache.ibatis.annotations.Mapper
 
 @Mapper

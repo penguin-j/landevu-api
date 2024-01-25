@@ -1,8 +1,9 @@
-package landevu.repository
+package landevu.infrastructure.repository.impl
 
 import landevu.dto.Area
-import landevu.repository.dao.AreaDao
-import landevu.repository.mapper.AreasMapper
+import landevu.infrastructure.dao.AreaDao
+import landevu.infrastructure.mapper.AreasMapper
+import landevu.infrastructure.repository.AreaRepository
 import org.springframework.stereotype.Repository
 
 @Repository

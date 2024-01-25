@@ -1,7 +1,7 @@
 package landevu.service.impl
 
 import landevu.dto.Area
-import landevu.repository.AreaRepository
+import landevu.infrastructure.repository.AreaRepository
 import landevu.service.SearchAreaService
 import org.springframework.stereotype.Service
 

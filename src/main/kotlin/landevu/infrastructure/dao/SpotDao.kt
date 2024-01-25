@@ -1,4 +1,4 @@
-package landevu.repository.dao
+package landevu.infrastructure.dao
 
 data class SpotDao(
     val spotId: String,

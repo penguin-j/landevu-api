@@ -1,4 +1,4 @@
-package landevu.repository
+package landevu.infrastructure.repository
 
 import landevu.dto.Spot
 

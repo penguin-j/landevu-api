@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="landevu.repository.mapper.AreasMapper">
+<mapper namespace="landevu.infrastructure.mapper.AreasMapper">
 
-    <select id="findById" resultType="landevu.repository.dao.AreaDao">
+    <select id="findById" resultType="landevu.infrastructure.dao.AreaDao">
         select * from landevu.areas where area_id = #{areaId}
     </select>
 
-    <select id="searchByTrainLineId" resultType="landevu.repository.dao.AreaDao">
+    <select id="searchByTrainLineId" resultType="landevu.infrastructure.dao.AreaDao">
         select
         a.area_id,
         a.area_name

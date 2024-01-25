@@ -1,9 +1,10 @@
-package landevu.repository
+package landevu.infrastructure.repository.impl
 
 import landevu.dto.Coordinate
 import landevu.dto.Spot
-import landevu.repository.dao.SpotDao
-import landevu.repository.mapper.SpotsMapper
+import landevu.infrastructure.dao.SpotDao
+import landevu.infrastructure.mapper.SpotsMapper
+import landevu.infrastructure.repository.SpotRepository
 import org.springframework.stereotype.Repository
 
 @Repository

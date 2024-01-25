@@ -1,8 +1,9 @@
-package landevu.repository
+package landevu.infrastructure.repository.impl
 
 import landevu.dto.TrainLine
-import landevu.repository.dao.TrainLineDao
-import landevu.repository.mapper.TrainLinesMapper
+import landevu.infrastructure.dao.TrainLineDao
+import landevu.infrastructure.mapper.TrainLinesMapper
+import landevu.infrastructure.repository.TrainLineRepository
 import org.springframework.stereotype.Repository
 
 @Repository
