@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.*
 @RestController
 class AreaController(
     private val searchAreaService: SearchAreaService,
-    private val searchAreaByTrainLineService: SearchAreaByTrainLineService,
+    private val recommendAreaByDeparturePlacesService: RecommendAreaByDeparturePlacesService,
+    private val recommendAreaByTrainLineService: RecommendAreaByTrainLineService,
     private val registerAreaService: RegisterAreaService,
-    private val updateAreaService: UpdateAreaService,
-    private val recommendAreaService: RecommendAreaService
+    private val updateAreaService: UpdateAreaService
 ) {
     companion object {
         const val URI_AREAS = "${AppConst.URI_HOME}/areas"
@@ -26,14 +26,15 @@ class AreaController(
 
     @PostMapping("${URI_AREAS}/recommend/by-departure-places")
     @ResponseStatus(HttpStatus.OK)
-    fun recommendAreaByDeparturePlaces(@RequestBody recommendAreaRequest: RecommendAreaRequest): RecommendAreaResponse {
-        val recommendedAreas: List<RecommendAreaResponseElement> = recommendAreaService.execute(recommendAreaRequest)
+    fun recommendAreaByDeparturePlaces(@RequestBody recommendAreaByDeparturePlacesRequest: RecommendAreaByDeparturePlacesRequest): RecommendAreaResponse {
+        val recommendedAreas: List<RecommendAreaResponseElement> =
+            recommendAreaByDeparturePlacesService.execute(recommendAreaByDeparturePlacesRequest)
         return RecommendAreaResponse(recommendedAreas)
     }
 
     @PostMapping("${URI_AREAS}/recommend/by-train-line")
-    fun recommendAreaByTrainLine(@RequestBody searchAreaByTrainLineRequest: SearchAreaByTrainLineRequest): RecommendAreaResponse {
-        val areas = searchAreaByTrainLineService.execute(searchAreaByTrainLineRequest.trainLineIds)
+    fun recommendAreaByTrainLine(@RequestBody searchAreaByTrainLineRequest: RecommendAreaByTrainLineRequest): RecommendAreaResponse {
+        val areas = recommendAreaByTrainLineService.execute(searchAreaByTrainLineRequest.trainLineIds)
         return RecommendAreaResponse(areas)
     }
 

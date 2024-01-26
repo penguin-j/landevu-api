@@ -3,20 +3,20 @@ package landevu.service.impl
 import landevu.dto.*
 import landevu.infrastructure.repository.AreaRepository
 import landevu.infrastructure.repository.SpotRepository
-import landevu.service.RecommendAreaService
+import landevu.service.RecommendAreaByDeparturePlacesService
 import org.springframework.stereotype.Service
 import software.amazon.awssdk.services.location.LocationClient
 import software.amazon.awssdk.services.location.model.SearchPlaceIndexForTextRequest
 import kotlin.math.*
 
 @Service
-class RecommendAreaServiceImpl(
+class RecommendAreaByDeparturePlacesServiceImpl(
     private val areaRepository: AreaRepository,
     private val spotRepository: SpotRepository,
-) : RecommendAreaService {
-    override fun execute(recommendAreaRequest: RecommendAreaRequest): List<RecommendAreaResponseElement> {
+) : RecommendAreaByDeparturePlacesService {
+    override fun execute(recommendAreaByDeparturePlacesRequest: RecommendAreaByDeparturePlacesRequest): List<RecommendAreaResponseElement> {
         // 出発地点の座標を取得する
-        val departureSpotCoordinates: List<Coordinate> = recommendAreaRequest.spotNames.map {
+        val departureSpotCoordinates: List<Coordinate> = recommendAreaByDeparturePlacesRequest.spotNames.map {
             searchCoordinateFromSpotName(it)
         }
         println(departureSpotCoordinates)
