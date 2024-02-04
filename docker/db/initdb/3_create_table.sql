@@ -1,7 +1,8 @@
 -- テーブル作成
 create table landevu.areas (
     area_id char(10) primary key,
-    area_name varchar(10) not null
+    area_name varchar(10) not null,
+    description varchar(100)
 );
 create table landevu.spots (
     spot_id char(10) primary key,
