@@ -1,3 +1,3 @@
 package landevu.dto
 
-data class Area(val areaId: String, val areaName: String)
+data class Area(val areaId: String, val areaName: String, val description: String)
